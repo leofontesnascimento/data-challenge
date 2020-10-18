@@ -1,0 +1,38 @@
+1. Suponha que você trabalha em uma empresa que trabalha com parceiros, e precisa dar
+acesso a esses dados para um dos seus parceiros, sendo parte desses dados sensíveis.
+Como você resolveria esse problema?
+
+Primeiro, antes de permitir o acesso a esses dados, mesmo que de forma controlada e rastreável, eu verificaria
+junto ao parceiro se os dados sensíveis são realmente necessários e se não ferem a política de privacidade
+antes estabelecida pela empresa que trabalho. Caso não sejam necessários, além de filtrá-los na hora de disponibilizar
+eu ainda aplicaria um algoritmo de anonimização dos dados que serão acessados com o objetivo de evitar que 
+por qualquer meio, mesmo técnológico, seja possível identificar de quem são os dados fornecidos, assim evitaríamos
+problemas com a nova "Lei Geral de Proteção de Dados" que entrou recentemente em vigor no Brasil. Caso sejam 
+realmente necessários, alguém do lado do parceiro teria que assinar algum documento de compromisso quanto a 
+Gestão, Governância e Responsabilidade em relação a esses dados compartilhados, além de terem que consumir esses
+dados de uma API altamente segura, com exigência de multi fator de autenticação (MFA) e que fornecesse os dados
+de forma rastrável, pois se alguma informação fosse divulgada indevidamente poderíamos rastrear a origem do vazamento
+de informação.
+
+2. A solução dada anteriormente é ótima e você já se livrou do problema de dados sensível.
+Então agora seu desafio é apenas construir uma API para exportar que o seu parceiro tenha
+acesso aos dados do Data Lake sem comprometer a segurança do mesmo. Suponha que o
+arquivo que você precisa mandar é atualizado semanal, e tem 10 GB, qual lógica você
+usaria para construir montar essa aplicação?
+
+Como estamos falando de um arquivo muito grande, acredito que o processo de atualização semanal desse arquivo deve
+fazer mais do que apenas sobrescrevê-lo. Sempre que esse arquivo fosse atualizado um job (work) deveria quebrar esse
+arquivo em arquivos muito menores que chamo de "chunks", o tamanho desses arquivos têm que ser muito pequeno, devemos lembrar
+que eles serão baixados pela Internet a partir de uma API. Além disso, se estivermos trabalhando com arquivos de texto
+podemos ainda aplicar algum algoritmo de compressão de texto que reduzirá o tamanho dos arquivos ainda mais, isso ajudará
+muito no tempo necessário para download dos mesmos. Contudo, devemos lembrar que se aplicarmos um algoritmo de proteção na
+origem dos dados, o mesmo algoritmo deve ser aplicado também no destino dos dados, ou seja, no lado do cliente (parceiro),
+portanto isso deve estar alinhado com ele. Além disso, cada "chunk" deve ter um identificador único, um ID incremental
+para facilitar sua remontagem depois que o parceiro baixar todas as partes, além de um hash MD5 para ser validado do lado
+do lado do cliente (parceiro) após o download de todas as partes. Eu criaria duas rotas pelo menos na API. Uma rota para listar
+todas os metadados de cada chunk, como ID do arquivo, tamanho em bytes, número de linhas e hash MD5. 
+E uma segunda rota que recebesse como entrada o ID de um arquivo "chunk" e o devolveria como resposta à requisição. Assim, 
+o parceiro poderá baixar cada chunk individualmente da forma que achar melhor, se em parelelo ou em série, de acordo com sua
+necessidade e velocidade de conexão com a Internet, e para cada "chunk" completamente baixado o parceiro ainda poderá 
+conferir se o arquivo foi realmente baixado corretamente! Para fazer isso, é só conferir se os metadados fornecidos pela primeira 
+rota batem com os metadados dos arquivos baixados pela segunda rota!
