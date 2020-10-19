@@ -12,7 +12,7 @@ Este projeto está dividido em quatro partes principais, cada uma representando 
 
 ## Parte 1
 
-Contém um script escrito em python 3 para calcular a mediana de matrizes do tipo `_x1`, bem como a mediana da fusão de 2 ou mais matrizes do mesmo tipo mas de tamanho iguais ou distintos.
+Contém um script escrito em `python 3` para calcular a mediana de matrizes do tipo `_x1`, bem como a mediana da fusão de 2 ou mais matrizes do mesmo tipo mas de tamanho iguais ou distintos.
 
 O script está localizado em [src/median.py](src/median.py) e para executá-lo basta seguir os seguintes passos:
 
@@ -26,7 +26,7 @@ O script está localizado em [src/median.py](src/median.py) e para executá-lo b
 
 ## Parte 2
 
-Contém um script escrito em python 3 para contar e mostrar o número de soluções do problema clássico das `N Queens`.
+Contém um script escrito em `python 3` para contar e mostrar o número de soluções do problema clássico das `N Queens`.
 
 O script está localizado em [src/n_queens.py](src/n_queens.py) e para executá-lo basta seguir os seguintes passos:
 
@@ -37,3 +37,9 @@ O script está localizado em [src/n_queens.py](src/n_queens.py) e para executá-
 * Verifique ele apresenta 92 soluções para essa solução
 ![python n_queens](./src/images/python-n-queens.png)
 * Sinta-se livre para testar com mais rainhas!
+
+## Parte 3
+
+Contém um arquivo em formato `markdown` que responde duas perguntas a respeito de ssegurança e controle de acesso à dados.
+
+O arquivo está localizado em [src/access_control.md](src/access_control.md)
