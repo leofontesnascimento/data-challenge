@@ -43,3 +43,9 @@ O script está localizado em [src/n_queens.py](src/n_queens.py) e para executá-
 Contém um arquivo em formato `markdown` que responde duas perguntas a respeito de ssegurança e controle de acesso à dados.
 
 O arquivo está localizado em [src/access_control.md](src/access_control.md)
+
+## Parte 4
+
+Contém um arquivo em formato `markdown` que mostra uma Arquitetura de Dados que considero simples e ideal.
+
+O arquivo está localizado em [src/data_architecture.md](src/data_architecture.md)
